@@ -1,11 +1,13 @@
 package guru.qa.country.controller.dto;
 
 import guru.qa.country.data.CountryEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class CountryDto {
 
     private String code;

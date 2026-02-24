@@ -3,9 +3,8 @@ package guru.qa.country.service.impl;
 import guru.qa.country.controller.dto.CountryDto;
 import guru.qa.country.data.CountryEntity;
 import guru.qa.country.data.CountryRepository;
-import guru.qa.country.domain.Country;
 import guru.qa.country.service.CountryService;
-import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,11 +25,11 @@ public class DBCountryService implements CountryService {
     }
 
     @Override
-    public List<Country> getAllCountries() {
+    public List<CountryDto> getAllCountries() {
         return countryRepository.findAll()
                 .stream()
                 .map(fe -> {
-                    return new Country(
+                    return new CountryDto(
                             fe.getCode(),
                             fe.getFullName()
                     );
@@ -43,7 +42,7 @@ public class DBCountryService implements CountryService {
         Optional<CountryEntity> foundEntity = countryRepository.findByCode(country.getCode());
 
         if (foundEntity.isPresent()) {
-            throw new EntityExistsException("Country with code %s already exists".formatted(country.getCode()));
+            throw new EntityNotFoundException("Country with code %s already exists".formatted(country.getCode()));
         }
         CountryEntity newEntity = CountryEntity.builder()
                 .code(country.getCode())
@@ -58,7 +57,7 @@ public class DBCountryService implements CountryService {
     public CountryDto updateCountry(String code, CountryDto country) {
         Optional<CountryEntity> foundEntity = countryRepository.findByCode(code);
         if (foundEntity.isEmpty()) {
-          throw new EntityExistsException("Country with code %s not exists in DB".formatted(code));
+            throw new EntityNotFoundException("Country with code %s not exists in DB".formatted(code));
         }
 
         CountryEntity updatedEntity = foundEntity.get();

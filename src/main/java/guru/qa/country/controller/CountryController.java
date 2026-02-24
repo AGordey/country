@@ -6,6 +6,7 @@ import guru.qa.country.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +23,12 @@ public class CountryController {
     }
 
     @GetMapping("all")  //Конечный эндпоинт
-    public List<Country> all() {
+    public List<CountryDto> all() {
         return countryService.getAllCountries();
     }
 
     @PostMapping("add")
-    public ResponseEntity<CountryDto> addCountry(@RequestBody CountryDto country){
+    public ResponseEntity<CountryDto> addCountry(@Validated @RequestBody CountryDto country){
         CountryDto newCountry = countryService.addCountry(country);
         return ResponseEntity.status(HttpStatus.CREATED).body(newCountry);
     }
