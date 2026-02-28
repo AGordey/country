@@ -17,7 +17,7 @@ public class CountryDto {
     public static CountryDto fromEntity(CountryEntity entity) {
         return CountryDto.builder()
                 .code(entity.getCode())
-                .name(entity.getFullName())
+                .name(entity.getName())
                 .build();
     }
 }

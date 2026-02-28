@@ -20,6 +20,6 @@ public class CountryEntity {
     @Column(nullable = false)
     private String code;
 
-    @Column(nullable = false,name = "name") // Добавлено, т.к. в таблице колонка name и она отличается от fullName
-    private String fullName;
+    @Column(nullable = false,name = "name", unique = true)
+    private String name;
 }
