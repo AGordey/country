@@ -1,12 +1,11 @@
 package guru.qa.country.service.impl;
 
-import guru.qa.country.controller.dto.CountryDto;
 import guru.qa.country.data.CountryEntity;
 import guru.qa.country.data.CountryRepository;
+import guru.qa.country.domain.rest.CountryDto;
 import guru.qa.country.service.CountryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 // значит что создан Bean, который пойдет в ApplicationContext и можем достать с помощью @Autowired используя его тип DBCountryService
-// Аннотация считывает автоматом изза @SpringBootApplication и пойдет в ApplicationContext
+// Аннотация считывает автоматом из-за @SpringBootApplication и пойдет в ApplicationContext
 // Применяем в CountryController
 public class DBCountryService implements CountryService {
 
@@ -56,7 +55,6 @@ public class DBCountryService implements CountryService {
         if (foundEntity.isEmpty()) {
             throw new EntityNotFoundException("Country with code %s not exists in DB".formatted(code));
         }
-
         CountryEntity updatedEntity = foundEntity.get();
         updatedEntity.setCode(country.getCode());
         updatedEntity.setName(country.getName());
