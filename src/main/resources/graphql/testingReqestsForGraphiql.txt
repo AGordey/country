@@ -1,0 +1,46 @@
+Для тестирования в /graphiql
+
+Запрос всех стран
+query countries {
+  countries {
+    code
+    name
+  }
+}
+
+Add
+
+mutation AddCountry($input: CountryInputGql!) {
+  addCountry(input: $input) {
+    code
+    name
+  }
+}
++ Variables
+{
+  "input": {
+    "code": "RR",
+    "name": "Racing Country"
+  }
+}
+
+
+
+Update
+В БД должна быть страна с кодом, например ZW
+
+mutation UpdateCountry($code: String!, $input: CountryInputGql!) {
+  updateCountry(code: $code, input: $input) {
+    code
+    name
+  }
+}
++ Variables
+{
+  "code": "ZW",
+  "input": {
+    "code": "DD",
+    "name": "Unite"
+
+  }
+}
